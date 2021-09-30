@@ -1,0 +1,59 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LeagueEmail.aspx.cs" Inherits="LeagueEmail" ValidateRequest="false" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>District One Contact</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <table style="border-bottom-style:ridge;border-spacing:10px;margin:auto;width:80%" cellpadding="5" cellspacing="5">
+        <tr>
+            <td colspan="2" align="center" style="font-size:large;font-weight:bold;font-family:Arial;color:Blue;margin:auto;vertical-align:middle">
+                <asp:Label runat="server" ID="lblTitle">Contact League</asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <asp:Label ID="Label1" runat="server" Text="League"></asp:Label></td>
+            <td>
+                <asp:Label ID="lblLeagueName" runat="server" Text="Label"></asp:Label></td>
+        </tr>
+        <tr>
+            <td align="right">
+                <asp:Label ID="Label2" runat="server" Text="From"></asp:Label></td>
+            <td>
+                <asp:TextBox ID="txtFrom" runat="server" Width="359px"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rqFRom" runat="server" ErrorMessage="From Email Address is required" ControlToValidate="txtFrom" Display="Dynamic" SetFocusOnError="True">*</asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="rgFrom" runat="server" ErrorMessage="From Email is not a valid email address" ControlToValidate="txtFrom" Display="Dynamic" SetFocusOnError="True" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">*</asp:RegularExpressionValidator></td>
+        </tr>
+        <tr>
+            <td align="right">
+                <asp:Label ID="Label4" runat="server" Text="Subject"></asp:Label></td>
+            <td>
+                <asp:TextBox ID="txtSubject" runat="server" Width="360px"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rqSubject" runat="server" ErrorMessage="Subject is Required" ControlToValidate="txtSubject" SetFocusOnError="True">*</asp:RequiredFieldValidator></td>
+        </tr>
+        <tr>
+            <td align="right">
+                <asp:Label ID="Label5" runat="server" Text="Body"></asp:Label></td>
+            <td>
+                <asp:TextBox ID="txtBody" runat="server" Width="889px" Rows="5" TextMode="MultiLine"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rqBody" runat="server" ErrorMessage="Email Body is required" ControlToValidate="txtBody" SetFocusOnError="True">*</asp:RequiredFieldValidator></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <asp:Button ID="btnSubmit" runat="server" Text="Send" OnClick="btnSubmit_Click"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
+            
+            </td>
+        </tr>
+    </table>
+    </form>
+</body>
+</html>

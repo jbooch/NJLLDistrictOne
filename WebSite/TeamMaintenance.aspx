@@ -1,0 +1,93 @@
+<%@ Page Language="C#" MasterPageFile="~/MasterMain.Master" AutoEventWireup="true" CodeFile="TeamMaintenance.aspx.cs" Inherits="DistrictOne.TeamMaintenance" Title="Team Maintenance" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <div class="container">
+                <div class="row" style="background-color: lavender">
+                    <div class="col-sm-12 text-sm-center">
+                        <span style="font-size: 24px; color: #FF0000">New Jersey District 1 Little League
+                        </span>
+                        <br />
+                        <span style="font-size: 18px; color: #000066; font-family: Calibri">District Administrator - Chris Graham
+                        </span>
+                        <br />
+                        <span style="font-size: 18px; color: #000066; font-family: Calibri">NJ District One Team Maintenance</span>
+                    </div>
+                </div>
+                </div>
+            <div class="container">
+                <br />
+                <div class="row border border-dark p-2">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12 text-justify">
+                                <br />
+                                <span class="h3 text-center">First, select the Division to maintain the teams.  Then, place a check in the checkbox field for the teams entered into the tournament.  If there is a team already created, the checkbox will be disabled.</span>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group row">
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-text">Division: </span>
+                                    <asp:DropDownList CssClass="form-control" ID="dlDivision" runat="server" AutoPostBack="True" OnSelectedIndexChanged="dlDivision_SelectedIndexChanged"></asp:DropDownList>
+                                </div>
+                             </div>
+                            <div class="col-sm-7">
+                                <div class="input-group">
+                                    <asp:Label CssClass="input-group-text" ID="Label1" runat="server" Text="Division Advancement Rule "></asp:Label>
+                                    <asp:TextBox CssClass="form-control" ID="txtDivRule"  runat="server" TextMode="MultiLine" Rows="2"></asp:TextBox>
+                                </div>
+                            </div>
+                        </div>
+                        <asp:Panel ID="pnlTeamGrid" runat="server" Visible="false">
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    <asp:CheckBox ID="ckShowTeamId" runat="server" Text=" Show Team Number" OnCheckedChanged="dlDivision_SelectedIndexChanged" AutoPostBack="True" CssClass="form-control align-content-end" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="offset-2 col-sm-8 text-center">
+                                    <div class="table-responsive">
+                                        <asp:GridView CssClass="table table-active table-bordered" ID="grdTeams" runat="server" AutoGenerateColumns="False" EnableModelValidation="True">
+                                            <Columns>
+                                                <asp:BoundField DataField="recordId" HeaderText="Team Number" Visible="false"></asp:BoundField>
+                                                <asp:TemplateField>
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox CssClass="form-control" ID="ckIsTEam" runat="server" Checked='<%# Bind("isTeam") %>' Enabled='<%# Bind("existingTeam") %>' />
+                                                        <asp:Label  ID="lblRecordID" runat="server" Text='<%#Bind("recordId") %>' Visible="false"></asp:Label>
+                                                        <asp:Label  ID="lblLeagueId" runat="server" Text='<%#Bind("leagueId") %>' Visible="false"></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:BoundField DataField="league" HeaderText="League"></asp:BoundField>
+                                                <asp:TemplateField HeaderText="Name">
+                                                    <ItemTemplate>
+                                                        <asp:TextBox CssClass="form-control" ID="txtName" runat="server" Text='<%# Bind("name") %>' MaxLength="50"></asp:TextBox>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Pool">
+                                                    <ItemTemplate>
+                                                        <asp:TextBox CssClass="form-control" ID="txtPool" runat="server" Text='<%# Bind("pool") %>' MaxLength="1"></asp:TextBox>
+                                                        <asp:Label ID="lblError" runat="server" Text="*" ForeColor="red" Font-Bold="true" Visible="false"></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    <asp:Button CssClass="btn btn-outline-dark" ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
+                                </div>
+                            </div>
+                        </asp:Panel>
+                    </div>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+
+</asp:Content>
+

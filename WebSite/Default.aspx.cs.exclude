@@ -1,0 +1,93 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DistrictObjects;
+
+public partial class _Default : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!Page.IsPostBack)
+        { 
+            string temp = DistrictObject.getDistrictData("lblDefaultMessage");
+            if (temp.Trim().Length > 0)
+            {
+                lblDefaultMessage.Visible = true;
+                lblDefaultMessage.Text = temp;
+            }
+            else
+            {
+                lblDefaultMessage.Visible = false;
+                lblDefaultMessage.Text = null;
+            }
+            // cards
+            rptCards.DataSource = DistrictCard.allCards.Cards;
+            rptCards.DataBind();
+        }
+
+    }
+    protected void tmUpdate_Tick(object sender, EventArgs e)
+    {
+        string countdownMessage = null;
+        DateTime countdownDate = DateTime.MinValue;
+        if (Session["countdownMessage"] != null)
+            countdownMessage = (string)Session["countdownMessage"];
+        else
+        {
+            countdownMessage = DistrictObject.getDistrictData("lblCountdownMessage");
+            Session["countdownMessage"] = countdownMessage;
+        }
+
+        if (Session["countdownDate"] != null)
+        {
+            countdownDate = (DateTime)Session["countdownDate"];
+        }
+        else
+        {
+            countdownDate = Convert.ToDateTime(DistrictObject.getDistrictData("lblCountdownDate"));
+            Session["countdownDate"] = countdownDate;
+        }
+
+        DateTime currentDate = DateTime.Now;
+
+        countdownDate = countdownDate.AddHours(Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings.Get("timeDiff")));
+
+        TimeSpan aSpan = (TimeSpan)countdownDate.Subtract(currentDate);
+        if (aSpan.Ticks > 0)
+        {
+            countdownPanel.Visible = true;
+            lblDays.Text = aSpan.Days.ToString("##0");
+            lblhours.Text = aSpan.Hours.ToString("#0");
+            lblMinutes.Text = aSpan.Minutes.ToString("#0");
+            lblSeconds.Text = aSpan.Seconds.ToString("#0");
+        }
+        else
+        {
+            countdownPanel.Visible = false;
+            lblDays.Text = "0";
+            lblhours.Text = "0";
+            lblMinutes.Text = "0";
+            lblSeconds.Text = "0";
+        }
+        lblCountdown.Text = countdownMessage;
+    }
+
+    protected void btnAdminRefresh_Click(object sender, EventArgs e)
+    {
+        ((masterMain)Page.Master).resetObjects();
+    }
+
+
+    protected void btnCards_Click(object sender, EventArgs e)
+    {
+        ((masterMain)Page.Master).resetMessage();
+        Response.Redirect("CardMaintenance.aspx");
+    }
+}

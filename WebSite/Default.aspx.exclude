@@ -1,0 +1,88 @@
+<%@ Page Language="C#" MasterPageFile="~/masterMain.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default"  Title="New Jersey District One" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <link href="LLNJONECustome.css" rel="stylesheet" />
+         <div class="container">
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <span style="font-size: 42px; color: #FF0000">New Jersey District 1 Little League</span>
+                        <br />
+                        <span style="font-size: 36px; color: #000066; font-family: Calibri">District Administrator - Chris Graham</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-3 col-sm-6">
+                        <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <asp:Panel ID="countdownPanel" runat="server">
+                                    <table class="table table-bordered">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th style="font-size: 26px;" colspan="4">
+                                                    <asp:Label ID="lblCountdown" runat="server"></asp:Label>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>Days</th>
+                                                <th>Hr</th>
+                                                <th>Min</th>
+                                                <th>Sec</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-info">
+                                            <tr>
+                                                <td>
+                                                    <asp:Label ID="lblDays" runat="server"></asp:Label></td>
+                                                <td>
+                                                    <asp:Label ID="lblhours" runat="server"></asp:Label></td>
+                                                <td>
+                                                    <asp:Label ID="lblMinutes" runat="server"></asp:Label></td>
+                                                <td>
+                                                    <asp:Label ID="lblSeconds" runat="server"></asp:Label>
+                                                    <asp:Timer ID="tmUpdate0" runat="server" Interval="999" OnTick="tmUpdate_Tick">
+                                                    </asp:Timer>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </asp:Panel>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 align-content-center">
+                        <h2 class="h4">
+                            <asp:Label CssClass="bg-dark p-1" ID="lblDefaultMessage" runat="server"></asp:Label></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card-group">
+                    <asp:Repeater ID="rptCards" runat="server">
+                        <ItemTemplate>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-2">
+                                <asp:Literal ID="Literal1" runat="server" Text='<% #Bind("CardColor") %>' />
+                                <h4 class="card-title">
+                                    <asp:Label ID="lblCardText" runat="server" Text='<% #Bind("cardTitle") %>'></asp:Label>
+                                </h4>
+                                <p class="card-body">
+                                    <asp:Label ID="lblCardBody" runat="server" Text='<% #Bind("cardBody") %>'></asp:Label>
+                                </p>
+                                <p class="card-footer">
+                                    <asp:Label runat="server" ID="lblCardFooter" Text='<% #Bind("cardFooter") %>'></asp:Label>
+                                </p>
+                            </div>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </div>
+            </div>
+        </div>
+</asp:Content>
+
